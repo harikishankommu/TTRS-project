@@ -1,0 +1,122 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// Define a structure for Train
+struct Train {
+    char Trains[30];
+    char date[12];
+    char from[20];
+    char to[20];
+    char departureTime[8];
+    char duration[10];
+    char price[10];
+    char train_number[10];
+};
+
+// Sample Train data for simplicity
+
+Train trains[5] = {
+    {"TrainA", "20/12/2024", "Hyderabad", "Patna", "09:00am", "36h", "5000", "A12791"},
+    {"TrainB", "20/12/2024", "Patna", "Hyderabad", "20:00pm", "34h", "4800", "B12792"},
+    {"TrainC", "21/12/2024", "Hyderabad", "Patna", "09:00am", "36h", "5200", "C12793"},
+    {"TrainD", "21/12/2024", "Patna", "Hyderabad", "20:00pm", "34h", "4900", "D12794"},
+    {"TrainE", "22/12/2024", "Hyderabad", "Patna", "12:00pm", "36h", "5100", "E12795"}
+};
+
+// User data
+char userName[50];
+char userEmail[50];
+char userMobile[15];
+
+void welcomeMessage() {
+    cout << "=============================================================\n";
+    cout << "    WELCOME TO TRAIN TICKET RESERVATION SYSTEM(TTRS)\n";
+    cout << "=============================================================\n\n";
+}
+
+void inputUserDetails() {
+    cout << "Enter your name: ";
+    cin.getline(userName, 50);
+    
+    cout << "Enter your email: ";
+    cin.getline(userEmail, 50);
+
+    cout << "Enter your mobile number: ";
+    cin.getline(userMobile, 15);
+}
+
+void trains_available() {
+    cout << "=============================================================\n";
+    cout << "                  AVAILABLE TRAINS ARE BELOW\n";
+    cout << "=============================================================\n\n";
+}
+
+
+void displayTrains() {
+    for (int i = 0; i < 5; i++) {
+        cout << "Train number :" << trains[i].train_number << "\n";
+        cout << "Trains       :" << trains[i].Trains << "\n";
+        cout << "Date         :" << trains[i].date << "\n";
+        cout << "From         :" << trains[i].from << "\n";
+        cout << "To           :" << trains[i].to << "\n";
+        cout << "Departure    :" << trains[i].departureTime << "\n";
+        cout << "Duration     :" << trains[i].duration << "\n";
+        cout << "Price: INR   :" << trains[i].price << "\n";
+        cout << "=============================================================\n";
+    }
+}
+
+void bookTrain() {
+    char selected_train_number[6];
+    int tickets;
+
+    cout << "Enter the Train number to book: ";
+    cin >> selected_train_number;
+    
+    bool found = false;
+    for (int i = 0; i < 5; i++) {
+        if (strcmp(trains[i].train_number, selected_train_number) == 0) { //strcmp used to compare two strings
+            found = true;
+            cout << "You selected:\n";
+            cout << "Trains        :" << trains[i].Trains << "\n";
+            cout << "Date          :" << trains[i].date << "\n";
+            cout << "From          :" << trains[i].from << "\n";
+            cout << "To            :" << trains[i].to << "\n";
+            cout << "Price per ticket: INR " << trains[i].price << "\n";
+            
+            cout << "=============================================================\n\n";
+            cout << "Enter the number of tickets: ";
+            cin >> tickets;
+
+            int totalCost = atoi(trains[i].price) * tickets;//atoi used to string-integer conversion
+            cout << "Total Cost: INR " << totalCost << "\n";
+
+            cout << "Congratulations!! Your Booking is Confirmed!\n";
+            cout << "=============================================================\n";
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Train number not found. Please try again.\n";
+    }
+}
+
+int main() {
+    welcomeMessage();
+
+    // Input user details
+    inputUserDetails();
+
+    trains_available();
+
+    // Display available Trains
+    displayTrains();
+
+    // Book a train
+    bookTrain();
+
+    cout << "Thank you for using the Train Ticket Reservation System!\n";
+    cout << "=============================================================\n";
+    return 0;
+}
